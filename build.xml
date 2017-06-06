@@ -8,33 +8,11 @@
    <property name="reportfolderPath" value="report/"/>
     <property name="execfolderPath" value="target/"/>
    <property name="jacocoexecPath" value="target/jacoco-it.exec"/>
-   <!--远程tomcat服务的ip地址-->
 
-   <property name="T01" value="112.124.19.127"/>
-    <property name="T04_port" value="8494"/>
-  <property name="T01execPath" value="target/T01.exec"/>
-
-
-   <property name="T04" value="120.26.208.240"/>
-    <property name="T04_port" value="8494"/>
-   <property name="T04execPath" value="target/T04.exec"/>
-
-    <property name="V01" value="121.40.166.114"/>
-    <property name="V01_port" value="28009"/>
-    <property name="V01execPath" value="target/V01.exec"/>
-
-
-    <property name="V04" value="121.40.157.37"/>
-    <property name="V04_port" value="28009"/>
-    <property name="V04execPath" value="target/V04.exec"/>
-
-
-   <!--前面配置的远程tomcat服务打开的端口，要跟上面配置的一样-->
-   <property name="server_port" value="8494"/>
    <!--源代码路径可以包含多个源代码-->
-   <property name="webSrcpath" value="/opt/hudson/.jenkins/workspace/build_customer_validation/grails-app"/>
+   <property name="webSrcpath" value="${webSrcpath}"/>
    <!--.class文件路径可以包含多个-->
-   <property name="webClasspath" value="./WEB-INF/classes"/>
+   <property name="webClasspath" value="${webClasspath}"/>
    <!--让ant知道去哪儿找Jacoco-->
    <taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
        <classpath path="${jacocoantPath}" />
@@ -45,8 +23,7 @@
        访问目标tomcat服务，并生成.exec文件。-->
    <target name="dump">
        <delete dir="${execfolderPath}" />
-       <jacoco:dump address="${V01}" reset="false" destfile="${V01execPath}" port="${V01_port}" append="true"/>
-       <jacoco:dump address="${V04}" reset="false" destfile="${V04execPath}" port="${V04_port}" append="true"/>
+       <jacoco:dump address="${TARGETS[i]}" reset="false" destfile="${V01execPath}" port="${PORT}" append="true"/>
    </target>
  	
  <target name="merge">
