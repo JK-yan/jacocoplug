@@ -32,9 +32,9 @@
    <!--前面配置的远程tomcat服务打开的端口，要跟上面配置的一样-->
    <property name="server_port" value="8494"/>
    <!--源代码路径可以包含多个源代码-->
-   <property name="webSrcpath" value="grails-app"/>
+   <property name="webSrcpath" value="/opt/hudson/.jenkins/workspace/build_customer_test/grails-app"/>
    <!--.class文件路径可以包含多个-->
-   <property name="webClasspath" value="/Users/convertlab-j/软件/apache-tomcat-8.0.43 /webapps/customer-latest/WEB-INF/classes"/>
+   <property name="webClasspath" value="./WEB-INF/classes"/>
    <!--让ant知道去哪儿找Jacoco-->
    <taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
        <classpath path="${jacocoantPath}" />
