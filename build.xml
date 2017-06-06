@@ -10,9 +10,9 @@
    <property name="jacocoexecPath" value="target/jacoco-it.exec"/>
 
    <!--源代码路径可以包含多个源代码-->
-   <property name="webSrcpath" value="${webSrcpath}"/>
+   <property name="webSrcpath" value="${WEBSRCPATH}"/>
    <!--.class文件路径可以包含多个-->
-   <property name="webClasspath" value="${webClasspath}"/>
+   <property name="webClasspath" value="${WEBCLASSPATH}"/>
    <!--让ant知道去哪儿找Jacoco-->
    <taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
        <classpath path="${jacocoantPath}" />
