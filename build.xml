@@ -9,8 +9,6 @@
     <property name="execfolderPath" value="target/"/>
    <property name="jacocoexecPath" value="target/jacoco-it.exec"/>
 
-   <!--源代码路径可以包含多个源代码-->
-   <property name="webSrcpath" value="${WEBSRCPATH}"/>
    <!--.class文件路径可以包含多个-->
    <property name="webClasspath" value="./WEB-INF/classes"/>
    <!--让ant知道去哪儿找Jacoco-->
@@ -50,7 +48,7 @@
                        <fileset dir="${webClasspath}" />
                    </classfiles>
                    <sourcefiles encoding="gbk">
-                       <fileset dir="${webSrcpath}" />
+                       <fileset dir="${WEBSRCPATH}" />
                    </sourcefiles>
                </group>
              </structure>
