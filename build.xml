@@ -12,7 +12,7 @@
    <!--源代码路径可以包含多个源代码-->
    <property name="webSrcpath" value="${WEBSRCPATH}"/>
    <!--.class文件路径可以包含多个-->
-   <property name="webClasspath" value="${WEBCLASSPATH}"/>
+   <property name="webClasspath" value="./WEB-INF/classes"/>
    <!--让ant知道去哪儿找Jacoco-->
    <taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
        <classpath path="${jacocoantPath}" />
