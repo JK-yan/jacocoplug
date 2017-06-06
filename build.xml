@@ -1,0 +1,84 @@
+<?xml version="1.0" ?>
+ <project name="coverage" xmlns:jacoco="antlib:org.jacoco.ant" >
+     <!--Jacoco的安装路径-->
+   <property name="jacocoantPath" value="lib/jacocoant.jar"/>
+   <!--最终生成.exec文件的路径，Jacoco就是根据这个文件生成最终的报告的-->
+ 
+     <!--生成覆盖率报告的路径-->
+   <property name="reportfolderPath" value="report/"/>
+    <property name="execfolderPath" value="target/"/>
+   <property name="jacocoexecPath" value="target/jacoco-it.exec"/>
+   <!--远程tomcat服务的ip地址-->
+
+   <property name="T01" value="112.124.19.127"/>
+    <property name="T04_port" value="8494"/>
+  <property name="T01execPath" value="target/T01.exec"/>
+
+
+   <property name="T04" value="120.26.208.240"/>
+    <property name="T04_port" value="8494"/>
+   <property name="T04execPath" value="target/T04.exec"/>
+
+    <property name="V01" value="121.40.166.114"/>
+    <property name="V01_port" value="28009"/>
+    <property name="V01execPath" value="target/V01.exec"/>
+
+
+    <property name="V04" value="121.40.157.37"/>
+    <property name="V04_port" value="28009"/>
+    <property name="V04execPath" value="target/V04.exec"/>
+
+
+   <!--前面配置的远程tomcat服务打开的端口，要跟上面配置的一样-->
+   <property name="server_port" value="8494"/>
+   <!--源代码路径可以包含多个源代码-->
+   <property name="webSrcpath" value="grails-app"/>
+   <!--.class文件路径可以包含多个-->
+   <property name="webClasspath" value="/Users/convertlab-j/软件/apache-tomcat-8.0.43 /webapps/customer-latest/WEB-INF/classes"/>
+   <!--让ant知道去哪儿找Jacoco-->
+   <taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
+       <classpath path="${jacocoantPath}" />
+   </taskdef>
+
+   <!--dump任务:
+       根据前面配置的ip地址，和端口号，
+       访问目标tomcat服务，并生成.exec文件。-->
+   <target name="dump">
+       <delete dir="${execfolderPath}" />
+       <jacoco:dump address="${V01}" reset="false" destfile="${V01execPath}" port="${V01_port}" append="true"/>
+       <jacoco:dump address="${V04}" reset="false" destfile="${V04execPath}" port="${V04_port}" append="true"/>
+   </target>
+ 	
+ <target name="merge">
+ 	<jacoco:merge destfile="${jacocoexecPath}">
+ 	    <fileset dir="target" includes="*.exec"/>
+ 	</jacoco:merge>
+ </target>
+
+   <!--jacoco任务:
+       根据前面配置的源代码路径和.class文件路径，
+       根据dump后，生成的.exec文件，生成最终的html覆盖率报告。-->
+ 
+   <target name="report">
+       <delete dir="${reportfolderPath}" />
+       <mkdir dir="${reportfolderPath}" />
+       
+       <jacoco:report>
+	  <executiondata>
+		<file file="${jacocoexecPath}" />
+	  </executiondata>
+           <structure name="JaCoCo Report">
+               <group name="Launch related">           
+                   <classfiles>
+                       <fileset dir="${webClasspath}" />
+                   </classfiles>
+                   <sourcefiles encoding="gbk">
+                       <fileset dir="${webSrcpath}" />
+                   </sourcefiles>
+               </group>
+             </structure>
+ 
+           <html destdir="${reportfolderPath}" encoding="utf-8" />         
+       </jacoco:report>
+   </target>
+ </project>
