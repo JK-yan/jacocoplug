@@ -22,7 +22,7 @@
        根据前面配置的ip地址，和端口号，
        访问目标tomcat服务，并生成.exec文件。-->
    <target name="dump">
-       <delete dir="${execfolderPath}" />
+       <delete dir="${EXECFOLDERPATH}" />
        <jacoco:dump address="${TARGETS[i]}" reset="false" destfile="${execPath}" port="${PORT}" append="true"/>
    </target>
  	
