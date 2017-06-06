@@ -23,7 +23,7 @@
        访问目标tomcat服务，并生成.exec文件。-->
    <target name="dump">
        <delete dir="${EXECFOLDERPATH}" />
-       <jacoco:dump address="${TARGETS[i]}" reset="false" destfile="${execPath}" port="${PORT}" append="true"/>
+       <jacoco:dump address="${TARGETS[i]}" reset="false" destfile="${EXECPATH}" port="${PORT}" append="true"/>
    </target>
  	
  <target name="merge">
