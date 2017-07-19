@@ -1,0 +1,25 @@
+### 代码覆盖率
+Jacoco介绍：
+     Jacoco是一个开源的代码覆盖率工具，Jacoco可以嵌入到Ant 、Maven，Gradle中，并提供了EclEmma Eclipse插件,也可以使用JavaAgent技术监控Java程序。通过javaAgent对代码的侵入性比较小，通过对运行的Class文件进行插庄打埋点统计代码覆盖率，不需要修改开发的代码，就能完成代码覆盖率的统计，很多第三方的工具提供了对Jacoco的集成，如sonar、Jenkins等。目前我们采用JavaAgent技术来监控代码覆盖率。并结合Jenkins来完成代码覆盖率的统计。
+服务器配置：
+   由于目前采用Docker容器来部署应用，需要暴露Docker容器的一个端口，例如Customer暴露的端口是8494端口，主要监听Jacoco Agent采集的代码覆盖率数据。部署步骤如下：
+1.  上传Jacoco相关jar包到相关应用的Docker容器，Jar包存放在
+https://github.com/xsio/jacocoplug/tree/master/lib
+2.  修改该应用的部署脚本，可以参考
+https://github.com/xsio/ci/edit/master/customer/build_customer_validation.groovy 
+这个脚本主要复制jacoco的jar包到Docker容器，并添加javaagent来监控代码覆盖率。
+
+  
+  Jenkins配置
+需要新建一个Jenkin Job里触发代码覆盖率的统计，该Job主要通过Ant脚本来收集服务器的代码覆盖率数据，并生成代码覆盖率报告。
+1.  新建一个groovy脚本，来触发ANT脚本，Groovy脚本可以参考：
+https://github.com/xsio/ci/blob/master/coderecover/customer_coderecover_validation.groovy
+
+2.  新建一个Jenkins Job来通过Pipeline方式执行Groovy脚本，并生成代码覆盖率报告。
+
+3.  点击构建，执行代码覆盖率，执行完毕后，点击Coverage Trend查看代码覆盖情况
+
+
+   Sonar配置
+后期会部署SONAR和Jenkins来查看代码质量，并结合Jacoco来查看代码覆盖率。尽请期待。
+
